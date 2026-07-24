@@ -36,6 +36,7 @@ members = [
     "examples/context",
     "examples/cookie",
     "examples/font",
+    "examples/frust-proto",
     "examples/hello-world",
     "examples/htmx",
     "examples/icon",

@@ -1,2 +1,6 @@
 [alias]
 topcoat = "run -p topcoat-cli --bin topcoat --"
+
+# ponytail: disk is nearly full; debuginfo is most of the target dir
+[profile.dev]
+debug = 0
