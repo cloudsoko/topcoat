@@ -1,7 +1,7 @@
 use ref_cast::RefCast;
 use serde::Serialize;
 
-use crate::{Signal, Surrogated, impl_surrogate, impl_surrogate_mut, impl_surrogate_ref};
+use crate::{Signal, StrSurrogate, Surrogated, impl_surrogate, impl_surrogate_mut, impl_surrogate_ref};
 
 #[derive(RefCast)]
 #[repr(transparent)]
@@ -42,6 +42,48 @@ where
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
     pub fn set(&self, _v: T::Surrogate) {
+        panic!("expressions in which a signal is written to cannot be run server-side");
+    }
+}
+
+impl SignalSurrogate<bool> {
+    /// Flips the signal's value.
+    ///
+    /// # Panics
+    ///
+    /// Always panics; signal writes can only occur in client-side expressions.
+    pub fn toggle(&self) {
+        panic!("expressions in which a signal is written to cannot be run server-side");
+    }
+}
+
+impl SignalSurrogate<f64> {
+    /// Adds `1` to the signal's value.
+    ///
+    /// # Panics
+    ///
+    /// Always panics; signal writes can only occur in client-side expressions.
+    pub fn increment(&self) {
+        panic!("expressions in which a signal is written to cannot be run server-side");
+    }
+
+    /// Subtracts `1` from the signal's value.
+    ///
+    /// # Panics
+    ///
+    /// Always panics; signal writes can only occur in client-side expressions.
+    pub fn decrement(&self) {
+        panic!("expressions in which a signal is written to cannot be run server-side");
+    }
+}
+
+impl SignalSurrogate<std::string::String> {
+    /// Appends a string to the signal's value.
+    ///
+    /// # Panics
+    ///
+    /// Always panics; signal writes can only occur in client-side expressions.
+    pub fn push_str(&self, _v: impl core::ops::Deref<Target = StrSurrogate>) {
         panic!("expressions in which a signal is written to cannot be run server-side");
     }
 }
