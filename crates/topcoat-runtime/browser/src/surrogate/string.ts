@@ -1,8 +1,12 @@
 import type { AttributeValueViewParts, NodeViewParts } from "../view";
 import { Bool } from "./bool";
+import { Decimal } from "./decimal";
 import { F64 } from "./f64";
 
 const TEXT_ENCODER = new TextEncoder();
+
+/** The plain-decimal grammar the Rust surrogate validates: -?digits(.digits)? */
+const DECIMAL_RE = /^-?\d+(\.\d+)?$/;
 
 export class Str implements AttributeValueViewParts, NodeViewParts {
 	constructor(protected readonly v: string) {}
@@ -65,6 +69,17 @@ export class Str implements AttributeValueViewParts, NodeViewParts {
 
 	contains(other: Str): Bool {
 		return new Bool(this.v.includes(other.v));
+	}
+
+	/**
+	 * Reads the string as an exact Decimal, yielding zero when it is not a
+	 * plain decimal number. The bridge from a text input to money
+	 * comparisons; it cannot become arithmetic, since Decimal has no
+	 * operators.
+	 */
+	to_decimal_or_zero(): Decimal {
+		const t = this.v.trim();
+		return new Decimal(DECIMAL_RE.test(t) ? t : "0");
 	}
 
 	isAttributePresent(): boolean {

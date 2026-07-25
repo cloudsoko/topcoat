@@ -100,4 +100,19 @@ impl StrSurrogate {
     pub fn contains(&self, other: &StrSurrogate) -> BoolSurrogate {
         BoolSurrogate::new(self.0.contains(&other.0))
     }
+
+    /// Reads the string as an exact [`Decimal`](crate::Decimal), yielding
+    /// zero when it is not a plain decimal number (an empty or half-typed
+    /// input field, most often).
+    ///
+    /// This is the bridge from a text input to money COMPARISONS. It cannot
+    /// become money arithmetic: `Decimal` deliberately has no operators, so
+    /// a value that gets stored still has to be computed on the server.
+    #[inline]
+    #[must_use]
+    pub fn to_decimal_or_zero(&self) -> crate::DecimalSurrogate {
+        let t = self.0.trim();
+        let candidate = if t.is_empty() { "0" } else { t };
+        crate::DecimalSurrogate::new(crate::Decimal::parse_or_zero(candidate))
+    }
 }

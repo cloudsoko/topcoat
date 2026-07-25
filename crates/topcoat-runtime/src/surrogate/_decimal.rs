@@ -34,6 +34,18 @@ impl Decimal {
     pub fn as_str(&self) -> &str {
         &self.0
     }
+
+    /// Parses a numeric string, yielding zero when it is not one. Used by
+    /// [`StrSurrogate::to_decimal_or_zero`](crate::StrSurrogate) so a
+    /// half-typed input compares as zero instead of panicking mid-keystroke.
+    #[must_use]
+    pub fn parse_or_zero(value: &str) -> Self {
+        if is_decimal(value) {
+            Self(value.to_string())
+        } else {
+            Self("0".to_string())
+        }
+    }
 }
 
 impl std::fmt::Display for Decimal {
