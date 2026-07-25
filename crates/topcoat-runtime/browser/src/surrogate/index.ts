@@ -1,6 +1,7 @@
 import type { Context } from "../context";
 import type { SignalId } from "../signal";
 import { Bool } from "./bool";
+import { Decimal } from "./decimal";
 import { F64 } from "./f64";
 import { Option } from "./option";
 import { Procedure } from "./procedure";
@@ -10,6 +11,7 @@ import { WriteSignal as RuntimeWriteSignal } from "./signal";
 import { Str, String } from "./string";
 
 export * from "./bool";
+export * from "./decimal";
 export * from "./event";
 export * from "./f64";
 export * from "./option";
@@ -25,6 +27,7 @@ export type DehydratedSurrogate =
 	| number
 	| { t: "i32"; v: number }
 	| { t: "str"; v: string }
+	| { t: "Decimal"; v: string }
 	| string
 	| { t: "Option"; v: DehydratedSurrogate | null }
 	| { t: "Result"; ok: DehydratedSurrogate }
@@ -54,6 +57,8 @@ export function hydrateSurrogate(
 			switch (value.t) {
 				case "str":
 					return new Str(value.v);
+				case "Decimal":
+					return new Decimal(value.v);
 				case "Option":
 					return value.v === null
 						? Option.none()

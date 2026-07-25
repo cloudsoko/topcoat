@@ -1,7 +1,9 @@
 use ref_cast::RefCast;
 use serde::Serialize;
 
-use crate::{Signal, StrSurrogate, Surrogated, impl_surrogate, impl_surrogate_mut, impl_surrogate_ref};
+use crate::{
+    Signal, StrSurrogate, Surrogated, impl_surrogate, impl_surrogate_mut, impl_surrogate_ref,
+};
 
 #[derive(RefCast)]
 #[repr(transparent)]

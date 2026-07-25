@@ -1,4 +1,5 @@
 mod _bool;
+mod _decimal;
 mod _f64;
 mod _str;
 mod event;
@@ -11,6 +12,7 @@ mod tuple;
 use serde::{Deserialize, Serialize, de};
 
 pub use _bool::*;
+pub use _decimal::*;
 pub use _f64::*;
 pub use _str::*;
 pub use event::*;
