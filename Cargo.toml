@@ -37,7 +37,6 @@ members = [
     "examples/cookie",
     "examples/font",
     "examples/frust-form-bridge",
-    "examples/frust-proto",
     "examples/hello-world",
     "examples/htmx",
     "examples/icon",
