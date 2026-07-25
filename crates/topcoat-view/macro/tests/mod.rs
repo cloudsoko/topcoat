@@ -4,3 +4,4 @@ mod component;
 mod control_flow;
 mod props;
 mod render;
+mod signal_methods;

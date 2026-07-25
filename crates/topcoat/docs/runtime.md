@@ -77,7 +77,7 @@ view! {
 
 The signal's initial value is an ordinary Rust expression, evaluated once during the server render and serialized into the page; the browser picks it up as reactive state.
 
-In the browser, a runtime expression re-runs whenever a signal it read changes -- the text above updates the moment `count` does, with no server round-trip. Signals can only be read (using `.get()`) and modified (using `.set(...)`) inside expressions. Nothing changes `count` yet, though; that is what event handlers are for.
+In the browser, a runtime expression re-runs whenever a signal it read changes -- the text above updates the moment `count` does, with no server round-trip. Signals can only be read (using `.get()`) and modified (using `.set(...)`) inside expressions; typed signals also carry utility mutators -- `toggle()` on `Signal<bool>`, `increment()`/`decrement()` on `Signal<f64>`, `push_str(...)` on `Signal<String>`. Nothing changes `count` yet, though; that is what event handlers are for.
 
 # Event handlers
 
