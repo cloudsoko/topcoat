@@ -85,7 +85,14 @@ impl SignalSurrogate<String> {
     /// # Panics
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
-    pub fn push_str(&self, _s: &StrSurrogate) {
+    //
+    // CARRIED PATCH (vendor): upstream #214 types this `&StrSurrogate`, which
+    // cannot accept an OWNED surrogate -- and the common case produces one:
+    // `message.push_str(e.target.value)` yields a `StringSurrogate`, so the
+    // narrow signature rejects the very call the method exists for. Taking
+    // `impl Deref<Target = StrSurrogate>` accepts both. Upstream-PR candidate;
+    // `signal_methods.rs` is the regression test.
+    pub fn push_str(&self, _s: impl core::ops::Deref<Target = StrSurrogate>) {
         write_in_browser_only();
     }
 }
