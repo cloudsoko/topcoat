@@ -38,16 +38,16 @@ The captured value is serialized into the page during the render and becomes a c
 
 # The shared vocabulary
 
-Expressions operate on a fixed vocabulary of types that exist on both sides, each exposing a subset of its Rust API:
+Expressions operate on a fixed vocabulary of types that exist on both sides, each exposing a subset of its Rust API. The members you reach for most:
 
 - `f64`: arithmetic (`+`, `-`, `*`, `/`), comparisons, and negation. All numbers are `f64`, matching JavaScript; integer literals are not accepted, so write `1.0` rather than `1`.
-- `bool`: `!`, comparisons, `then`, and `then_some`.
+- `bool`: `!`, equality comparisons, `then`, and `then_some`.
 - `String` and `&str`: `len`, `is_empty`, `trim`, `trim_start`, `trim_end`, `starts_with`, `ends_with`, `contains`, `to_owned`, and comparisons.
 - `Option<T>`: `is_some`, `is_none`, `unwrap`, and `expect`.
 - `Result<T, E>`: `is_ok`, `is_err`, `ok`, `err`, `unwrap`, `expect`, `unwrap_err`, and `expect_err`.
 - Tuples of vocabulary types.
 - [`Decimal`]: exact decimal numbers (money never becomes a float) -- `eq`/`ne`/`gt`/`lt`/`ge`/`le` (numeric, so `1.5` equals `1.50`), `is_zero`, `is_negative`, `to_string`.
-- [`Signal`]: `get` and `set`, plus typed utilities: `toggle` on `Signal<bool>`, `increment` and `decrement` on `Signal<f64>`, and `push_str` on `Signal<String>`.
+- [`Signal`]: `get` and `set`, plus a shorter spelling for common writes: `toggle` on a `bool` signal, `increment` and `decrement` on an `f64` signal, and `push_str` on a `String` signal.
 
 # Supported syntax
 

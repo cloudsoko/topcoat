@@ -44,50 +44,55 @@ where
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
     pub fn set(&self, _v: T::Surrogate) {
-        panic!("expressions in which a signal is written to cannot be run server-side");
+        write_in_browser_only();
     }
 }
 
 impl SignalSurrogate<bool> {
-    /// Flips the signal's value.
+    /// Replaces the value with its negation.
     ///
     /// # Panics
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
     pub fn toggle(&self) {
-        panic!("expressions in which a signal is written to cannot be run server-side");
+        write_in_browser_only();
     }
 }
 
 impl SignalSurrogate<f64> {
-    /// Adds `1` to the signal's value.
+    /// Adds one to the value.
     ///
     /// # Panics
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
     pub fn increment(&self) {
-        panic!("expressions in which a signal is written to cannot be run server-side");
+        write_in_browser_only();
     }
 
-    /// Subtracts `1` from the signal's value.
+    /// Subtracts one from the value.
     ///
     /// # Panics
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
     pub fn decrement(&self) {
-        panic!("expressions in which a signal is written to cannot be run server-side");
+        write_in_browser_only();
     }
 }
 
-impl SignalSurrogate<std::string::String> {
-    /// Appends a string to the signal's value.
+impl SignalSurrogate<String> {
+    /// Appends a string to the end of the value.
     ///
     /// # Panics
     ///
     /// Always panics; signal writes can only occur in client-side expressions.
-    pub fn push_str(&self, _v: impl core::ops::Deref<Target = StrSurrogate>) {
-        panic!("expressions in which a signal is written to cannot be run server-side");
+    pub fn push_str(&self, _s: &StrSurrogate) {
+        write_in_browser_only();
     }
+}
+
+/// The panic shared by every signal write evaluated on the server.
+fn write_in_browser_only() -> ! {
+    panic!("expressions in which a signal is written to cannot be run server-side");
 }
 
 impl_surrogate!({T} Signal<T>, SignalSurrogate<T>);
@@ -110,5 +115,34 @@ impl<T> Serialize for SignalSurrogate<T> {
             id: self.0.id().to_string(),
         }
         .serialize(serializer)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = "cannot be run server-side")]
+    fn toggle_panics_server_side() {
+        SignalSurrogate::new(Signal::new(false)).toggle();
+    }
+
+    #[test]
+    #[should_panic(expected = "cannot be run server-side")]
+    fn increment_panics_server_side() {
+        SignalSurrogate::new(Signal::new(0.0)).increment();
+    }
+
+    #[test]
+    #[should_panic(expected = "cannot be run server-side")]
+    fn decrement_panics_server_side() {
+        SignalSurrogate::new(Signal::new(0.0)).decrement();
+    }
+
+    #[test]
+    #[should_panic(expected = "cannot be run server-side")]
+    fn push_str_panics_server_side() {
+        SignalSurrogate::new(Signal::new(String::new())).push_str(StrSurrogate::ref_cast(""));
     }
 }

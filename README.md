@@ -188,7 +188,7 @@ Topcoat also ships with utilities for web fonts and icons, as well as easy integ
 
 ### Built-in Tailwind support
 
-Enabled the `tailwind` feature to integrate [Tailwind](https://tailwindcss.com/) into your project effortlessly:
+Enable the `tailwind` feature to integrate [Tailwind](https://tailwindcss.com/) into your project:
 
 ```rust,ignore
 view! { <link rel="stylesheet" href=(topcoat::tailwind::stylesheet!())> }
@@ -229,13 +229,15 @@ view! { <link rel="stylesheet" href=(topcoat::tailwind::stylesheet!())> }
 - [Procedures](https://docs.rs/topcoat/latest/topcoat/runtime/attr.procedure.html): async server functions callable from the browser.
 - [Shards](https://docs.rs/topcoat/latest/topcoat/runtime/attr.shard.html): components that re-render on the server when their arguments change.
 
-**UI components**
+**Miscellaneous**
 - [Topcoat UI](https://github.com/tokio-rs/topcoat/blob/main/crates/topcoat/docs/ui.md): premade components vendored into your project for you to edit.
+- [Mail](https://docs.rs/topcoat/latest/topcoat/mail/index.html): declare mail with the `mail!` macro, deliver through SMTP, file, or in-memory transports.
 
 **Third-party integrations**
 - [Tailwind](https://docs.rs/topcoat/latest/topcoat/tailwind/index.html): Tailwind CSS without Node, wired into the asset pipeline.
 - [htmx](https://docs.rs/topcoat/latest/topcoat/htmx/index.html): drive partial HTML swaps from the server with request/response header helpers.
 - [Alpine AJAX](https://docs.rs/topcoat/latest/topcoat/alpine_ajax/index.html): drive partial HTML swaps from the server with Alpine AJAX's request-header conventions.
+- [Datastar](https://docs.rs/topcoat/latest/topcoat/datastar/index.html): patch elements and signals into the page over server-sent events.
 
 ## Roadmap
 
@@ -245,9 +247,9 @@ Planned features we'd like to bring to Topcoat. Have an idea? [Open an issue](ht
 - [ ] Static export
 - [ ] (More) reactivity (`topcoat-runtime`)
 - [ ] More Topcoat UI components, full "blocks" e.g. sign-in form
-- [ ] Emailing
 - [ ] Better [Toasty](https://github.com/tokio-rs/toasty) integration (safely create/update records from forms without listing out all the fields)
 - [ ] Validations
+- [ ] Localization support
 - [ ] `OpenAPI` endpoints
 - [ ] Sitemaps
 - [ ] Docs for how to deploy Topcoat
@@ -255,8 +257,8 @@ Planned features we'd like to bring to Topcoat. Have an idea? [Open an issue](ht
 - [ ] Streaming SSR / Suspense
 - [ ] Client-side navigation + prefetching
 - [ ] `WebTransport`
-- [ ] Server-sent events
 - [ ] Image optimization / resizing
+- [ ] Markdown support
 - [ ] Easier-to-use middlewares like rate-limiting, compression, etc.
 - [ ] Authentication
 - [ ] Background jobs

@@ -30,17 +30,21 @@ full = [
 	"asset",
 	"compression",
 	"cookie",
+	"datastar",
 	"discover",
 	"font",
 	"font-fontsource",
 	"htmx",
 	"icon",
 	"icon-iconify",
+	"mail",
+	"mail-smtp",
 	"multipart",
 	"router",
 	"runtime",
 	"serve",
 	"session",
+	"sse",
 	"tailwind",
 	"tower",
 	"ui",
@@ -63,6 +67,10 @@ compression = [
 cookie = [
 	"dep:topcoat-cookie",
 	"topcoat-session?/cookie",
+]
+datastar = [
+	"dep:topcoat-datastar",
+	"sse",
 ]
 discover = [
 	"dep:inventory",
@@ -94,6 +102,15 @@ icon-iconify = [
 	"topcoat-icon-macro/iconify",
 	"topcoat-icon/iconify-build",
 ]
+mail = [
+	"dep:topcoat-mail",
+	"dep:topcoat-mail-macro",
+	"view",
+]
+mail-smtp = [
+	"mail",
+	"topcoat-mail/smtp",
+]
 multipart = [
 	"router",
 	"topcoat-router/multipart",
@@ -105,6 +122,7 @@ router = [
 	"topcoat-asset?/router",
 	"topcoat-cookie?/router",
 	"topcoat-font?/router",
+	"topcoat-mail?/router",
 	"topcoat-runtime?/router",
 	"topcoat-session?/router",
 ]
@@ -122,6 +140,10 @@ runtime = [
 ]
 session = [
 	"dep:topcoat-session",
+]
+sse = [
+	"router",
+	"topcoat-router/sse",
 ]
 tailwind = [
 	"dep:topcoat-tailwind",
@@ -150,11 +172,14 @@ topcoat-asset = { workspace = true, optional = true }
 topcoat-cookie = { workspace = true, optional = true }
 topcoat-core.workspace = true
 topcoat-core-macro.workspace = true
+topcoat-datastar = { workspace = true, optional = true }
 topcoat-font = { workspace = true, optional = true }
 topcoat-font-macro = { workspace = true, optional = true }
 topcoat-htmx = { workspace = true, optional = true }
 topcoat-icon = { workspace = true, optional = true }
 topcoat-icon-macro = { workspace = true, optional = true }
+topcoat-mail = { workspace = true, optional = true }
+topcoat-mail-macro = { workspace = true, optional = true }
 topcoat-router = { workspace = true, optional = true }
 topcoat-router-macro = { workspace = true, optional = true }
 topcoat-runtime = { workspace = true, optional = true }
@@ -173,6 +198,8 @@ tokio = { workspace = true, optional = true, features = ["macros", "net", "signa
 tokio-tungstenite = { workspace = true, optional = true, features = ["connect"] }
 
 [dev-dependencies]
+futures-core.workspace = true
+futures-util.workspace = true
 serde_json.workspace = true
 uuid = { workspace = true }
 tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }

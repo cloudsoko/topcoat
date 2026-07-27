@@ -1,44 +1,70 @@
+import { effect, root, signal, tick } from "@maverick-js/signals";
 import { expect, it } from "vitest";
 
-import { SignalRegistry } from "../signal";
 import { Bool } from "./bool";
 import { F64 } from "./f64";
 import { WriteSignal } from "./signal";
-// biome-ignore lint/suspicious/noShadowRestrictedNames: Surrogate type
 import { Str, String } from "./string";
 
-function signalOf<T>(value: T): WriteSignal<T> {
-	const registry = new SignalRegistry();
-	registry.insert("test", value);
-	return new WriteSignal<T>("test", registry.handle("test") as never);
+function write<T>(value: T): WriteSignal<T> {
+	return new WriteSignal("test", signal(value));
 }
 
-it("toggle flips a bool signal", () => {
-	const signal = signalOf(new Bool(false));
+it("toggle flips a boolean and flips it back", () => {
+	const s = write(new Bool(false));
 
-	signal.toggle();
-	expect(signal.get().dehydrate()).toBe(true);
+	s.toggle();
+	expect(s.get().dehydrate()).toBe(true);
 
-	signal.toggle();
-	expect(signal.get().dehydrate()).toBe(false);
+	s.toggle();
+	expect(s.get().dehydrate()).toBe(false);
 });
 
-it("increment and decrement step an f64 signal by one", () => {
-	const signal = signalOf(new F64(41));
+it("increment and decrement move by one, including across zero", () => {
+	const s = write(new F64(0));
 
-	signal.increment();
-	expect(signal.get().dehydrate()).toBe(42);
+	s.increment();
+	expect(s.get().dehydrate()).toBe(1);
 
-	signal.decrement();
-	signal.decrement();
-	expect(signal.get().dehydrate()).toBe(40);
+	s.decrement();
+	s.decrement();
+	expect(s.get().dehydrate()).toBe(-1);
 });
 
-it("push_str appends to a string signal", () => {
-	const signal = signalOf(new String("Hello"));
+it("push_str appends and leaves the previous value untouched", () => {
+	const before = new String("hi");
+	const s = write(before);
 
-	signal.push_str(new Str(", world"));
-	signal.push_str(new String("!"));
+	s.push_str(new Str("!"));
 
-	expect(signal.get().dehydrate()).toBe("Hello, world!");
+	expect(s.get().dehydrate()).toBe("hi!");
+	expect(before.dehydrate()).toBe("hi");
+});
+
+// Each write must construct a new value rather than mutate the stored one:
+// change detection is identity based, so a future refactor that mutates in
+// place would silently stop notifying subscribers.
+it("each write notifies subscribers exactly once", () => {
+	root((dispose) => {
+		const inner = signal<unknown>(new F64(0));
+		const s = new WriteSignal("test", inner);
+
+		let runs = 0;
+		effect(() => {
+			inner();
+			runs += 1;
+		});
+		tick();
+		expect(runs).toBe(1);
+
+		s.increment();
+		tick();
+		expect(runs).toBe(2);
+
+		s.decrement();
+		tick();
+		expect(runs).toBe(3);
+
+		dispose();
+	});
 });
