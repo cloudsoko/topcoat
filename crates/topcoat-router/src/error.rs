@@ -6,6 +6,7 @@ mod internal_server;
 mod method_not_allowed;
 mod not_found;
 mod redirect;
+mod service_unavailable;
 mod unauthorized;
 
 pub use bad_request::*;
@@ -14,6 +15,7 @@ pub use internal_server::*;
 pub use method_not_allowed::*;
 pub use not_found::*;
 pub use redirect::*;
+pub use service_unavailable::*;
 pub use unauthorized::*;
 
 use http::StatusCode;
@@ -49,6 +51,7 @@ fn error_into_response(cx: &Cx, error: Error) -> Response {
     let error = try_downcast!(error as MethodNotAllowedError);
     let error = try_downcast!(error as RedirectError);
     let error = try_downcast!(error as UnauthorizedError);
+    let error = try_downcast!(error as ServiceUnavailableError);
 
     into_response_or_500(cx, internal_server_error(error))
 }
