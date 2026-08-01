@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/tokio-rs/topcoat/compare/topcoat-view-grammar-v0.5.0...topcoat-view-grammar-v0.6.0) - 2026-08-01
+
+### Fixed
+
+- *(core)* keep macro bodies intact when formatting rust snippets ([#273](https://github.com/tokio-rs/topcoat/pull/273))
+- *(view)* allow keyword element names ([#274](https://github.com/tokio-rs/topcoat/pull/274))
+
+### Other
+
+- sort imports
+
 ## [0.5.0](https://github.com/tokio-rs/topcoat/compare/topcoat-view-grammar-v0.4.0...topcoat-view-grammar-v0.5.0) - 2026-07-27
 
 ### Added

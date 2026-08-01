@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/tokio-rs/topcoat/compare/v0.5.0...v0.6.0) - 2026-08-01
+
+### Added
+
+- *(router)* [**breaking**] replace path parameter attribute macro ([#242](https://github.com/tokio-rs/topcoat/pull/242))
+- use #[track_caller] where appropriate ([#262](https://github.com/tokio-rs/topcoat/pull/262))
+- *(router)* add a too-many-requests error with a Retry-After hint ([#267](https://github.com/tokio-rs/topcoat/pull/267))
+- *(router)* add Js and Wasm response wrappers ([#268](https://github.com/tokio-rs/topcoat/pull/268))
+- *(router)* add a service-unavailable error with a Retry-After hint ([#266](https://github.com/tokio-rs/topcoat/pull/266))
+- *(router)* [**breaking**] request body limits ([#233](https://github.com/tokio-rs/topcoat/pull/233))
+
+### Fixed
+
+- fix docs issues
+- fix doc tests with default features
+- *(asset)* [**breaking**] write the bundle next to the executable it was scanned from ([#243](https://github.com/tokio-rs/topcoat/pull/243))
+- *(asset)* register one route per bundled file ([#249](https://github.com/tokio-rs/topcoat/pull/249))
+- *(core)* detect recursive memoized calls ([#278](https://github.com/tokio-rs/topcoat/pull/278))
+- *(core)* keep macro bodies intact when formatting rust snippets ([#273](https://github.com/tokio-rs/topcoat/pull/273))
+- *(datastar)* reject multiline selectors ([#256](https://github.com/tokio-rs/topcoat/pull/256))
+- *(router)* isolate request panics ([#257](https://github.com/tokio-rs/topcoat/pull/257))
+- *(router)* reject invalid route signatures at parse time ([#241](https://github.com/tokio-rs/topcoat/pull/241))
+- include docs and visibility in routes, procedures, layers ([#232](https://github.com/tokio-rs/topcoat/pull/232))
+- *(runtime)* reject non-2xx shard responses instead of rendering them ([#247](https://github.com/tokio-rs/topcoat/pull/247))
+- *(runtime)* render f64 text the way Rust's Display does ([#245](https://github.com/tokio-rs/topcoat/pull/245))
+- *(runtime)* match Rust semantics for string comparison and trim ([#244](https://github.com/tokio-rs/topcoat/pull/244))
+- *(runtime)* reject invalid procedure signatures at parse time ([#230](https://github.com/tokio-rs/topcoat/pull/230))
+- *(view)* allow keyword element names ([#274](https://github.com/tokio-rs/topcoat/pull/274))
+
+### Other
+
+- sort imports
+- make request and response dedicated modules
+- decrease logo size
+- add readme logo
+- fix memoize docs stale example
+- merge router service and serve into single file
+- [**breaking**] return ContentTooLargeError instead of LengthLimitError from to_bytes ([#263](https://github.com/tokio-rs/topcoat/pull/263))
+- *(runtime)* note that page guards do not cover shard endpoints ([#251](https://github.com/tokio-rs/topcoat/pull/251))
+
 ## [0.5.0](https://github.com/tokio-rs/topcoat/compare/v0.4.0...v0.5.0) - 2026-07-27
 
 ### Added

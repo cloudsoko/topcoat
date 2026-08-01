@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/tokio-rs/topcoat/compare/topcoat-core-v0.5.0...topcoat-core-v0.6.0) - 2026-08-01
+
+### Added
+
+- use #[track_caller] where appropriate ([#262](https://github.com/tokio-rs/topcoat/pull/262))
+
+### Fixed
+
+- *(core)* detect recursive memoized calls ([#278](https://github.com/tokio-rs/topcoat/pull/278))
+- *(core)* keep macro bodies intact when formatting rust snippets ([#273](https://github.com/tokio-rs/topcoat/pull/273))
+
+### Other
+
+- sort imports
+
 ## [0.5.0](https://github.com/tokio-rs/topcoat/compare/topcoat-core-v0.4.0...topcoat-core-v0.5.0) - 2026-07-27
 
 ### Added

@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/tokio-rs/topcoat/compare/topcoat-runtime-v0.5.0...topcoat-runtime-v0.6.0) - 2026-08-01
+
+### Added
+
+- use #[track_caller] where appropriate ([#262](https://github.com/tokio-rs/topcoat/pull/262))
+
+### Fixed
+
+- *(runtime)* reject non-2xx shard responses instead of rendering them ([#247](https://github.com/tokio-rs/topcoat/pull/247))
+- *(runtime)* render f64 text the way Rust's Display does ([#245](https://github.com/tokio-rs/topcoat/pull/245))
+- *(runtime)* match Rust semantics for string comparison and trim ([#244](https://github.com/tokio-rs/topcoat/pull/244))
+
+### Other
+
+- sort imports
+- make request and response dedicated modules
+- *(runtime)* note that page guards do not cover shard endpoints ([#251](https://github.com/tokio-rs/topcoat/pull/251))
+
 ## [0.5.0](https://github.com/tokio-rs/topcoat/compare/topcoat-runtime-v0.4.0...topcoat-runtime-v0.5.0) - 2026-07-27
 
 ### Added

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/tokio-rs/topcoat/compare/topcoat-cli-v0.5.0...topcoat-cli-v0.6.0) - 2026-08-01
+
+### Fixed
+
+- *(asset)* [**breaking**] write the bundle next to the executable it was scanned from ([#243](https://github.com/tokio-rs/topcoat/pull/243))
+
+### Other
+
+- sort imports
+- make request and response dedicated modules
+
 ## [0.5.0](https://github.com/tokio-rs/topcoat/compare/topcoat-cli-v0.4.0...topcoat-cli-v0.5.0) - 2026-07-27
 
 ### Added
